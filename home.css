@@ -1,0 +1,84 @@
+h1{
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+    /*text properties*/
+
+    color:#070a26;    /*color:#FF0000;
+    color:hsl(45,100%,50%);*/
+    text-align: center;
+    text-decoration: underline;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+
+}
+body, html {
+    margin: 50 px;
+    padding: 80px;
+    background-color: #99baf7;
+}
+
+.container {
+    display: flex;
+}
+
+.adjacent-image {
+    width: 100%;
+    height: auto;
+}
+
+#transactionForm {
+    width: 50%;
+    padding: 10px;
+    display: block;
+    margin:40px;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.transactions {
+    width: 50%;
+    padding: 0px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 300%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+img:hover {
+  transform: scale(1.1); /* Increase scale to 110% on hover */
+  transition: transform 0.3s ease; /* Smooth transition */
+}
