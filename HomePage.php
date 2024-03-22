@@ -26,8 +26,7 @@
         <section class="features">
             <h2>Key Features</h2>
             <ul>
-                <li>Expense Tracking</li>
-                <li>Budget Planning</li>
+                <li>Expense management</li>
                 <li>Income Management</li>
                 <li>Financial Reports</li>
             </ul>
