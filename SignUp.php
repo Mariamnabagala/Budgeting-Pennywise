@@ -1,16 +1,14 @@
 <?php
   include 'connectdb.php';
-  $success = 0;
-  $unsuccess = 0;
+ $success=0;
+ $unsuccess=0;
   if ($_SERVER['REQUEST_METHOD']=='POST') {
   	$Username =$_POST['Username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $PhoneNumber = $_POST['PhoneNumber'];
-    //hash user password - password_hash()
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
     //check if email is already in the db
-    $mysql = "SELECT * FROM pennywise WHERE email='$email'";
+    $mysql = "SELECT * FROM users WHERE email='$email'";
     $myresult = mysqli_query($connect, $mysql);
     if ($myresult) {
       // check if there is any record from executing the query
@@ -19,7 +17,7 @@
         //echo "Email already exists"; //not successful
         $unsuccess = 1;
       } else{
-        $sql = "INSERT INTO pennywise(email, password, PhoneNumber) VALUES('$email','$password_hash','$PhoneNumber')";
+        $sql = "INSERT INTO users(username, email, password, PhoneNumber) VALUES('$email','$password','$PhoneNumber')";
         $result = mysqli_query($connect, $sql);
         if ($result) {
           //echo "Signup successful"; //success

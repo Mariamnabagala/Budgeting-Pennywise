@@ -1,25 +1,25 @@
 <?php
-  include "connect.php";
+  include "connectdb.php";
   $unsuccess = 0;
   if ($_SERVER['REQUEST_METHOD']=='POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $sql = "SELECT * FROM accounts WHERE email='$email'";
+    $sql = "SELECT * FROM users WHERE email='$email'";
     $result = mysqli_query($connect, $sql);
     if ($result) {
       // check if there is any record from executing the query
       if (mysqli_num_rows($result)>0) {
         // check if passwords match
         // fetch the password hash from db
-        $account = mysqli_fetch_assoc($result);
-        $password_hash = $account['password'];
+        $users = mysqli_fetch_assoc($result);
+        $password_hash = $users['password'];
         //password_verify() - compares the hash password with the password the user has inputed
         if (password_verify($password, $password_hash)) {
           //echo "Login successful";
           //sessions - to store user data(in variables) accross multiple pages
           session_start();//start user session
           $_SESSION['email'] = $email;
-          $_SESSION['id'] = $account['id'];
+          $_SESSION['password'] = $users['password'];
           header("location:Home.php");
         }else{
           // echo "Invalid login";
