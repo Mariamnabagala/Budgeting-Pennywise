@@ -1,38 +1,29 @@
 <?php
-  include "connectdb.php";
-  $unsuccess = 0;
+$login=0;
+$Invalid=0;
   if ($_SERVER['REQUEST_METHOD']=='POST') {
-    $email = $_POST['email'];
+    include 'connectdb.php';
+  	$username =$_POST['username'];
     $password = $_POST['password'];
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = mysqli_query($connect, $sql);
-    if ($result) {
-      // check if there is any record from executing the query
-      if (mysqli_num_rows($result)>0) {
-        // check if passwords match
-        // fetch the password hash from db
-        $users = mysqli_fetch_assoc($result);
-        $password_hash = $users['password'];
-        //password_verify() - compares the hash password with the password the user has inputed
-        if (password_verify($password, $password_hash)) {
-          //echo "Login successful";
-          //sessions - to store user data(in variables) accross multiple pages
-          session_start();//start user session
-          $_SESSION['email'] = $email;
-          $_SESSION['password'] = $users['password'];
-          header("location:Home.php");
-        }else{
-          // echo "Invalid login";
-          $unsuccess = 1;
-        }
-      }
-    }
+    
+        $sql="select * from 'registration' where username='$username' and password='$password'";
+        $result=mysqli_query($con,$sql);
+        if($result){
+          $num=mysqli_num_rows($results);
+          if($num>0){
+           $login=1;
+           session_start();
+           $_SESSION['username']=$username;
+           header('location:home.php');
 
+          }else{
+            $Invalid=1;
+          }
+        }
+    
   }
 
-
-
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,26 +36,40 @@
     <link rel="stylesheet" type="text/css" href="SignUp.css">
 </head>
 <body>
+
+<?php
+if($login=1){
+  echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Success </strong> Successful Log-In.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>';
+}
+
+?>
+
+<?php
+if($Invalid=1){
+  echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Invalid </strong> Invalid Credentials.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>';
+}
+
+?>
   <img src="personal.jpg"width="1700" height="400">
 	<div class="container">
-		<h1>Login</h1>
+		<h1>Login To Our Website</h1>
 
 		<form method="post" id="LogInForm">
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-    <div id="emailHelp" class="form-text"></div>
+    <label for="exampleInputEmail1" class="form-label">Name</label>
+    <input type="text" class="form-control" placeholder="Enter your username" name="username">
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+    <input type="password" class="form-control" placeholder="Enter your password" name="password">
   </div>
-  <?php
-    if ($unsuccess) {
-      echo "<div class='error'>Invalid login</div>";
-    }
-    
-  ?>
+  
   <button type="submit" class="loginbutton" >Login</button>
 </form>
 <div>Don't have an account?

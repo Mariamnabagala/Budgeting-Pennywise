@@ -1,8 +1,13 @@
 <?php
+$HOSTNAME='localhost';
+$USERNAME='root';
+$PASSWORD='';
+$DATABASE='pennywise';
 
-	$connect = mysqli_connect('localhost', 'root', '', 'pennywise');
-	if (!$connect) {
-		die(mysqli_connect_error());
+
+$con=mysqli_connect($HOSTNAME, $USERNAME, $PASSWORD, $DATABASE);
+	if($con) {
+		die(mysqli_error($con));
 	}
 
 ?>

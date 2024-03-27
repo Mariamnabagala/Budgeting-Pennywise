@@ -1,39 +1,35 @@
 <?php
-  include 'connectdb.php';
- $success=0;
- $unsuccess=0;
+$success=0;
+$user=0;
+
   if ($_SERVER['REQUEST_METHOD']=='POST') {
-  	$Username =$_POST['Username'];
+    include 'connectdb.php';
+  	$username =$_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $PhoneNumber = $_POST['PhoneNumber'];
-    //check if email is already in the db
-    $mysql = "SELECT * FROM users WHERE email='$email'";
-    $myresult = mysqli_query($connect, $mysql);
-    if ($myresult) {
-      // check if there is any record from executing the query
-      //mysqli_num_rows()
-      if (mysqli_num_rows($myresult)>0) {
-        //echo "Email already exists"; //not successful
-        $unsuccess = 1;
-      } else{
-        $sql = "INSERT INTO users(username, email, password, PhoneNumber) VALUES('$email','$password','$PhoneNumber')";
-        $result = mysqli_query($connect, $sql);
-        if ($result) {
-          //echo "Signup successful"; //success
-          $success = 1;
-        } else{
-          die(mysqli_error($connect));
+    $phonenumber = $_POST['phonenumber'];
+  
+        $sql="select * from 'registration' where username='$username'";
+        $result=mysqli_query($con,$sql);
+        if($result){
+          $num=mysqli_num_rows($results);
+          if($num>0){
+           //echo "User or email already exist";
+           $user=1;
+
+          }else{
+            $sql ="insert into 'registration'(username,email,password,phonenumber) VALUES('$username','$email','$password','$phonenumber')";
+            $result = mysqli_query($con, $sql);
+            if ($result) {
+              //echo "Signup Successfully";
+              $success=1;
+            } else{
+              die(mysqli_error($con));
+            }
+          }
         }
-      }
-    }
-
-
-    
+        
   }
-
-
-
 
 ?>
 
@@ -47,12 +43,32 @@
 	<link rel="stylesheet" type="text/css"href="SignUp.css">
 </head>
 <body>
+
+<?php
+if($user=1){
+  echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Ohh no Sorry</strong> User already exist.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>';
+}
+
+?>
+
+<?php
+if($success=1){
+  echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Success </strong> Successful Sign-Up.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>';
+}
+
+?>
 	<img src="balance.jpg" width="1700" height="400">
 	<h1>Sign Up</h1>
-<form id="SignUpForm" method="post">
+<form id="Signinform" method="post">
 	<div>
 	<label>Username:</label>
-	<input type="name" name="Username" id="Username" placeholder=" Enter Username" >
+	<input type="name" name="username" id="username" placeholder=" Enter Username" >
 </div>
 <div>
 	<br>
@@ -66,21 +82,11 @@
 </div>
 <br>
 <div>
-	<label>Confirm Password:</label>
-	<input type="Password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Please confirm your Password">
-</div>
-<div>
 	<br>
 	<label>Phone Number:</label>
-	<input type="number" name="PhoneNumber" id="PhoneNumber" placeholder="Enter your PhoneNumber">
+	<input type="number" name="phonenumber" id="phonenumber" placeholder="Enter your PhoneNumber">
 </div>
 <?php
-    if ($unsuccess) {
-      echo "<div class='error'>Email already exists!</div>";
-    }
-    if ($success) {
-      echo "<div class='error'>Signup successful</div>";
-    }
   ?>
 <button class="button">SignUp</button>
 </form>

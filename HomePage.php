@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+    header('location:login.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +21,9 @@
 <body>
     <img src="personal.jpg"width="1700" height="400">
     <header>
-        <h1>Welcome to Our Budgeting Website</h1>
+        <h1 class="text-center text-warning mt-5">Welcome to Our Budgeting Website
+            <?php echo $_SESSION['username']; ?>
+        </h1>
         <p>Start managing your finances effectively!</p>
     </header>
 
