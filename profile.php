@@ -14,8 +14,7 @@
 <nav class="navbar">
     <div class="container">
         <ul>
-            <li><a href="home.php">Home</a></li>
-            <li><a href="purchase.php">Purchase</a></li>
+             <a href="home.php">TRANSACTIONS</a>
             <li><a href="profile.php">Profile</a></li>
         </ul>
     </div>
